@@ -1,5 +1,6 @@
 package com.example.rebookuserservice.service;
 
+import com.example.rebookuserservice.clients.NotificationClient;
 import com.example.rebookuserservice.exception.CDuplicatedDataException;
 import com.example.rebookuserservice.exception.CInvalidDataException;
 import com.example.rebookuserservice.model.CategoryResponse;
@@ -28,6 +29,7 @@ public class UsersService {
     private final UserReader userReader;
     private final S3Service s3Service;
     private final FavoriteCategoryRepository  favoriteCategoryRepository;
+    private final NotificationClient notificationClient;
 
     @Value("${aws.basic}")
     private String baseImageUrl;
@@ -101,9 +103,8 @@ public class UsersService {
     public String createUser(UsersCreateRequest request) {
         String userId = generateUserId();
         Users user = request.toEntity(baseImageUrl, userId);
-        log.info("user:{}", user);
         Users savedUsers = userRepository.save(user);
-        log.info("User: {}", savedUsers);
+        notificationClient.createAllSettings(userId);
         return savedUsers.getId();
     }
 
@@ -112,6 +113,7 @@ public class UsersService {
         String userId = generateUserId();
         Users user = request.toEntity(userId);
         Users savedUsers = userRepository.save(user);
+        notificationClient.createAllSettings(userId);
         return savedUsers.getId();
     }
 
