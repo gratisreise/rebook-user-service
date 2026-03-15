@@ -1,4 +1,4 @@
-package com.example.rebookuserservice.clients;
+package com.example.rebookuserservice.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;

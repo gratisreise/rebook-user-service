@@ -1,6 +1,6 @@
 package com.example.rebookuserservice.service;
 
-import com.example.rebookuserservice.clients.NotificationClient;
+import com.example.rebookuserservice.client.NotificationClient;
 import com.example.rebookuserservice.exception.CDuplicatedDataException;
 import com.example.rebookuserservice.exception.CInvalidDataException;
 import com.example.rebookuserservice.model.CategoryResponse;
