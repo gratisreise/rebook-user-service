@@ -3,10 +3,10 @@ package com.example.rebookuserservice.domain.controller;
 import com.example.rebookuserservice.common.CommonResult;
 import com.example.rebookuserservice.common.ResponseService;
 import com.example.rebookuserservice.common.SingleResult;
-import com.example.rebookuserservice.domain.model.CategoryResponse;
-import com.example.rebookuserservice.domain.model.PasswordUpdateRequest;
-import com.example.rebookuserservice.domain.model.UsersResponse;
-import com.example.rebookuserservice.domain.model.UsersUpdateRequest;
+import com.example.rebookuserservice.domain.model.dto.response.CategoryResponse;
+import com.example.rebookuserservice.domain.model.dto.request.PasswordUpdateRequest;
+import com.example.rebookuserservice.domain.model.dto.response.UsersResponse;
+import com.example.rebookuserservice.domain.model.dto.request.UsersUpdateRequest;
 import com.example.rebookuserservice.passport.PassportUser;
 import com.example.rebookuserservice.domain.service.UsersService;
 import com.rebook.passport.PassportProto.Passport;
@@ -82,7 +82,7 @@ public class UsersController {
         @RequestHeader("X-User-Id")String userId,
         @Valid @RequestBody PasswordUpdateRequest request
     ){
-        log.info("update password {}", request.getPassword());
+        log.info("update password {}", request.password());
         return ResponseService.getSuccessResult();
     }
 

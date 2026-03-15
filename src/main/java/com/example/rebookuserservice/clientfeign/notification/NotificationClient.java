@@ -1,4 +1,4 @@
-package com.example.rebookuserservice.client.notification;
+package com.example.rebookuserservice.clientfeign.notification;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;

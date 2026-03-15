@@ -1,8 +1,7 @@
 package com.example.rebookuserservice.domain.controller;
 
-import com.example.rebookuserservice.common.CommonResult;
-import com.example.rebookuserservice.common.ResponseService;
-import com.example.rebookuserservice.domain.model.CategoryRequest;
+
+import com.example.rebookuserservice.domain.model.dto.request.CategoryRequest;
 import com.example.rebookuserservice.domain.service.FavoriteCategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

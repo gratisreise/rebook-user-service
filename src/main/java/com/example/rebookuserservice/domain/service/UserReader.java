@@ -2,7 +2,7 @@ package com.example.rebookuserservice.domain.service;
 
 import com.example.rebookuserservice.common.exception.CMissingDataException;
 import com.example.rebookuserservice.domain.model.entity.Users;
-import com.example.rebookuserservice.domain.model.feigns.AuthorsRequest;
+import com.example.rebookuserservice.domain.model.dto.request.AuthorsRequest;
 import com.example.rebookuserservice.domain.repository.UserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,8 @@
 package com.example.rebookuserservice.domain.controller;
 
-import com.example.rebookuserservice.domain.model.OAuthUsersRequest;
-import com.example.rebookuserservice.domain.model.UsersCreateRequest;
-import com.example.rebookuserservice.domain.model.feigns.AuthorsRequest;
+import com.example.rebookuserservice.domain.model.dto.request.OAuthUsersRequest;
+import com.example.rebookuserservice.domain.model.dto.request.UsersCreateRequest;
+import com.example.rebookuserservice.domain.model.dto.request.AuthorsRequest;
 import com.example.rebookuserservice.domain.service.FavoriteCategoryReader;
 import com.example.rebookuserservice.domain.service.UserReader;
 import com.example.rebookuserservice.domain.service.UsersService;

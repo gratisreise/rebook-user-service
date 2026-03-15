@@ -1,6 +1,5 @@
-package com.example.rebookuserservice.domain.service;
+package com.example.rebookuserservice.external.s3;
 
-import com.example.rebookuserservice.common.exception.CMissingDataException;
 import java.io.IOException;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;

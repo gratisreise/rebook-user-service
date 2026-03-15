@@ -1,27 +1,20 @@
-package com.example.rebookuserservice.domain.model;
+package com.example.rebookuserservice.domain.model.dto.request;
 
 import com.example.rebookuserservice.domain.model.entity.Users;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
-@Getter
-@Setter
-@ToString
-public class UsersCreateRequest {
-
+public record UsersCreateRequest(
     @NotBlank
     @Email
-    private String email;
+    String email,
 
     @NotBlank
     @Length(min = 3, max = 100)
-    private String nickname;
-
-    public Users toEntity(String image, String userId){
+    String nickname
+) {
+    public Users toEntity(String image, String userId) {
         return Users.builder()
             .id(userId)
             .email(email)
@@ -29,6 +22,4 @@ public class UsersCreateRequest {
             .profileImage(image)
             .build();
     }
-
-
 }

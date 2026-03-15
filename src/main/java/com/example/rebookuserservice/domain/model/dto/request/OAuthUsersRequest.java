@@ -1,17 +1,11 @@
-package com.example.rebookuserservice.domain.model;
+package com.example.rebookuserservice.domain.model.dto.request;
 
 import com.example.rebookuserservice.domain.model.entity.Users;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
-public class OAuthUsersRequest {
-
-    private String nickname;
-    private String profileImage;
-
-
+public record OAuthUsersRequest(
+    String nickname,
+    String profileImage
+) {
     public Users toEntity(String userId) {
         return Users.builder()
             .id(userId)
@@ -19,5 +13,4 @@ public class OAuthUsersRequest {
             .profileImage(profileImage)
             .build();
     }
-
 }

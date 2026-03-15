@@ -1,6 +1,6 @@
 package com.example.rebookuserservice.domain.model.entity;
 
-import com.example.rebookuserservice.domain.model.UsersUpdateRequest;
+import com.example.rebookuserservice.domain.model.dto.request.UsersUpdateRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;

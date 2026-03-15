@@ -1,16 +1,17 @@
 package com.example.rebookuserservice.domain.service;
 
-import com.example.rebookuserservice.client.notification.NotificationClient;
+import com.example.rebookuserservice.clientfeign.notification.NotificationClient;
 import com.example.rebookuserservice.common.exception.CDuplicatedDataException;
 import com.example.rebookuserservice.common.exception.CInvalidDataException;
-import com.example.rebookuserservice.domain.model.CategoryResponse;
-import com.example.rebookuserservice.domain.model.OAuthUsersRequest;
-import com.example.rebookuserservice.domain.model.UsersCreateRequest;
-import com.example.rebookuserservice.domain.model.UsersResponse;
-import com.example.rebookuserservice.domain.model.UsersUpdateRequest;
+import com.example.rebookuserservice.domain.model.dto.response.CategoryResponse;
+import com.example.rebookuserservice.domain.model.dto.request.OAuthUsersRequest;
+import com.example.rebookuserservice.domain.model.dto.request.UsersCreateRequest;
+import com.example.rebookuserservice.domain.model.dto.response.UsersResponse;
+import com.example.rebookuserservice.domain.model.dto.request.UsersUpdateRequest;
 import com.example.rebookuserservice.domain.model.entity.Users;
 import com.example.rebookuserservice.domain.repository.FavoriteCategoryRepository;
 import com.example.rebookuserservice.domain.repository.UserRepository;
+import com.example.rebookuserservice.external.s3.S3Service;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;

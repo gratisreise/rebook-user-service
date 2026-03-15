@@ -1,4 +1,4 @@
-package com.example.rebookuserservice.config;
+package com.example.rebookuserservice.external.s3;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
