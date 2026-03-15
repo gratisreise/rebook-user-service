@@ -1,4 +1,4 @@
-package com.example.rebookuserservice.model.feigns;
+package com.example.rebookuserservice.domain.model.feigns;
 
 import java.util.List;
 import lombok.Getter;

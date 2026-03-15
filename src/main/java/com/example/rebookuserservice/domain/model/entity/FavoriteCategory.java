@@ -1,6 +1,6 @@
-package com.example.rebookuserservice.model.entity;
+package com.example.rebookuserservice.domain.model.entity;
 
-import com.example.rebookuserservice.model.entity.compositekey.FavoriteCategoryId;
+import com.example.rebookuserservice.domain.model.entity.compositekey.FavoriteCategoryId;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;

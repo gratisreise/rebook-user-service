@@ -1,14 +1,14 @@
-package com.example.rebookuserservice.controller;
+package com.example.rebookuserservice.domain.controller;
 
 import com.example.rebookuserservice.common.CommonResult;
 import com.example.rebookuserservice.common.ResponseService;
 import com.example.rebookuserservice.common.SingleResult;
-import com.example.rebookuserservice.model.CategoryResponse;
-import com.example.rebookuserservice.model.PasswordUpdateRequest;
-import com.example.rebookuserservice.model.UsersResponse;
-import com.example.rebookuserservice.model.UsersUpdateRequest;
+import com.example.rebookuserservice.domain.model.CategoryResponse;
+import com.example.rebookuserservice.domain.model.PasswordUpdateRequest;
+import com.example.rebookuserservice.domain.model.UsersResponse;
+import com.example.rebookuserservice.domain.model.UsersUpdateRequest;
 import com.example.rebookuserservice.passport.PassportUser;
-import com.example.rebookuserservice.service.UsersService;
+import com.example.rebookuserservice.domain.service.UsersService;
 import com.rebook.passport.PassportProto.Passport;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

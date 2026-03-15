@@ -1,6 +1,6 @@
-package com.example.rebookuserservice.model;
+package com.example.rebookuserservice.domain.model;
 
-import com.example.rebookuserservice.model.entity.Users;
+import com.example.rebookuserservice.domain.model.entity.Users;
 import lombok.Getter;
 import lombok.Setter;
 

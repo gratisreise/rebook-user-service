@@ -1,6 +1,6 @@
-package com.example.rebookuserservice.service;
+package com.example.rebookuserservice.domain.service;
 
-import com.example.rebookuserservice.repository.FavoriteCategoryRepository;
+import com.example.rebookuserservice.domain.repository.FavoriteCategoryRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.example.rebookuserservice.model.entity.compositekey;
+package com.example.rebookuserservice.domain.model.entity.compositekey;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

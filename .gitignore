@@ -36,4 +36,4 @@ out/
 ### VS Code ###
 .vscode/
 Rebook_user-service.json
-CLAUDE.md
+.claude/CLAUDE.md

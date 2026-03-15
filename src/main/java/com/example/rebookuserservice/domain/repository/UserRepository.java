@@ -1,6 +1,6 @@
-package com.example.rebookuserservice.repository;
+package com.example.rebookuserservice.domain.repository;
 
-import com.example.rebookuserservice.model.entity.Users;
+import com.example.rebookuserservice.domain.model.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

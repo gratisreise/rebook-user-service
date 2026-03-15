@@ -1,10 +1,9 @@
-package com.example.rebookuserservice.service;
+package com.example.rebookuserservice.domain.service;
 
-import com.example.rebookuserservice.exception.CMissingDataException;
-import com.example.rebookuserservice.model.OAuthUsersRequest;
-import com.example.rebookuserservice.model.entity.Users;
-import com.example.rebookuserservice.model.feigns.AuthorsRequest;
-import com.example.rebookuserservice.repository.UserRepository;
+import com.example.rebookuserservice.common.exception.CMissingDataException;
+import com.example.rebookuserservice.domain.model.entity.Users;
+import com.example.rebookuserservice.domain.model.feigns.AuthorsRequest;
+import com.example.rebookuserservice.domain.repository.UserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

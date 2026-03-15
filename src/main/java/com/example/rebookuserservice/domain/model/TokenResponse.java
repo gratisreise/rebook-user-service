@@ -1,4 +1,4 @@
-package com.example.rebookuserservice.model;
+package com.example.rebookuserservice.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

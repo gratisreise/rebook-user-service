@@ -1,9 +1,8 @@
-package com.example.rebookuserservice.model;
+package com.example.rebookuserservice.domain.model;
 
-import com.example.rebookuserservice.model.entity.Users;
+import com.example.rebookuserservice.domain.model.entity.Users;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

@@ -6,7 +6,7 @@ plugins {
     id 'jacoco'
 }
 
-group = 'com.user-service' // 프로젝트 그룹(패키지 네임)
+group = 'com.user' // 프로젝트 그룹(패키지 네임)
 version = '0.0.1' // 프로젝트 버전
 
 java {
@@ -61,11 +61,6 @@ dependencies {
     implementation platform('software.amazon.awssdk:bom:2.27.21') // 최신 버전은 Maven Central에서 확인
     implementation 'software.amazon.awssdk:s3'
 
-
-//    // ===== jwt ====
-//    implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
-//    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.5'
-//    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.5' // JSON 변환을 위해 필요
 
     //공통라이브러리
     implementation "com.rebook:passport-common:1.0.0"

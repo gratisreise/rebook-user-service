@@ -1,11 +1,11 @@
-package com.example.rebookuserservice.controller;
+package com.example.rebookuserservice.domain.controller;
 
-import com.example.rebookuserservice.model.OAuthUsersRequest;
-import com.example.rebookuserservice.model.UsersCreateRequest;
-import com.example.rebookuserservice.model.feigns.AuthorsRequest;
-import com.example.rebookuserservice.service.FavoriteCategoryReader;
-import com.example.rebookuserservice.service.UserReader;
-import com.example.rebookuserservice.service.UsersService;
+import com.example.rebookuserservice.domain.model.OAuthUsersRequest;
+import com.example.rebookuserservice.domain.model.UsersCreateRequest;
+import com.example.rebookuserservice.domain.model.feigns.AuthorsRequest;
+import com.example.rebookuserservice.domain.service.FavoriteCategoryReader;
+import com.example.rebookuserservice.domain.service.UserReader;
+import com.example.rebookuserservice.domain.service.UsersService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;

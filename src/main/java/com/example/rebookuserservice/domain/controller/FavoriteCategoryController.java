@@ -1,9 +1,9 @@
-package com.example.rebookuserservice.controller;
+package com.example.rebookuserservice.domain.controller;
 
 import com.example.rebookuserservice.common.CommonResult;
 import com.example.rebookuserservice.common.ResponseService;
-import com.example.rebookuserservice.model.CategoryRequest;
-import com.example.rebookuserservice.service.FavoriteCategoryService;
+import com.example.rebookuserservice.domain.model.CategoryRequest;
+import com.example.rebookuserservice.domain.service.FavoriteCategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

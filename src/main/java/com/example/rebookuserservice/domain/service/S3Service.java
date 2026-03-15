@@ -1,6 +1,6 @@
-package com.example.rebookuserservice.service;
+package com.example.rebookuserservice.domain.service;
 
-import com.example.rebookuserservice.exception.CMissingDataException;
+import com.example.rebookuserservice.common.exception.CMissingDataException;
 import java.io.IOException;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
