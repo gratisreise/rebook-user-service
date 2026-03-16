@@ -14,6 +14,5 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FavoriteCategory {
-    @EmbeddedId
-    private FavoriteCategoryId favoriteCategoryId;
+  @EmbeddedId private FavoriteCategoryId favoriteCategoryId;
 }

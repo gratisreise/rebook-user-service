@@ -12,6 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FavoriteCategoryId {
-    private String userId;
-    private String category;
+  private String userId;
+  private String category;
 }

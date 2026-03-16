@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @FeignClient(name = "notification-service")
 public interface NotificationClient {
-    @PostMapping("/api/notifications/me/settings/{userId}")
-    void createAllSettings(@PathVariable String userId);
+  @PostMapping("/api/notifications/me/settings/{userId}")
+  void createAllSettings(@PathVariable String userId);
 }

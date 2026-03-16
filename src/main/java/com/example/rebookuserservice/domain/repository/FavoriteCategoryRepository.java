@@ -8,11 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FavoriteCategoryRepository extends JpaRepository<FavoriteCategory, FavoriteCategoryId> {
-    List<FavoriteCategory> findByFavoriteCategoryIdUserId(String userId);
-    List<FavoriteCategory> findByFavoriteCategoryIdCategory(String category);
+public interface FavoriteCategoryRepository
+    extends JpaRepository<FavoriteCategory, FavoriteCategoryId> {
+  List<FavoriteCategory> findByFavoriteCategoryIdUserId(String userId);
 
-    @Query("SELECT f.favoriteCategoryId.userId FROM FavoriteCategory f WHERE f.favoriteCategoryId.category = :category")
-    List<String> findUserIdsByCategory(String category);
+  List<FavoriteCategory> findByFavoriteCategoryIdCategory(String category);
 
+  @Query(
+      "SELECT f.favoriteCategoryId.userId FROM FavoriteCategory f WHERE f.favoriteCategoryId.category = :category")
+  List<String> findUserIdsByCategory(String category);
 }

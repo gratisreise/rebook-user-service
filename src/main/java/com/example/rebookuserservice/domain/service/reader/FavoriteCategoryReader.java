@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class FavoriteCategoryReader {
-    private final FavoriteCategoryRepository favoriteCategoryRepository;
+  private final FavoriteCategoryRepository favoriteCategoryRepository;
 
-    public List<String> findUserIdsByCategory(String category) {
-        return favoriteCategoryRepository.findUserIdsByCategory(category);
-    }
+  public List<String> findUserIdsByCategory(String category) {
+    return favoriteCategoryRepository.findUserIdsByCategory(category);
+  }
 }

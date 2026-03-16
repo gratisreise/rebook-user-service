@@ -12,16 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class FavoriteCategoryService {
 
-    private final FavoriteCategoryWriter favoriteCategoryWriter;
-    private final FavoriteCategoryReader favoriteCategoryReader;
+  private final FavoriteCategoryWriter favoriteCategoryWriter;
+  private final FavoriteCategoryReader favoriteCategoryReader;
 
-    @Transactional
-    public void postCategories(String userId, CategoryRequest request) {
-        favoriteCategoryWriter.postCategories(userId, request);
-    }
+  @Transactional
+  public void postCategories(String userId, CategoryRequest request) {
+    favoriteCategoryWriter.postCategories(userId, request);
+  }
 
-    @Transactional(readOnly = true)
-    public List<String> findUserIdsByCategory(String category) {
-        return favoriteCategoryReader.findUserIdsByCategory(category);
-    }
+  @Transactional(readOnly = true)
+  public List<String> findUserIdsByCategory(String category) {
+    return favoriteCategoryReader.findUserIdsByCategory(category);
+  }
 }

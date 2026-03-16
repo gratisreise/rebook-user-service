@@ -25,29 +25,28 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @AllArgsConstructor
 @ToString
 public class Users {
-    @Id
-    @Column(length = 50)
-    private String id;
+  @Id
+  @Column(length = 50)
+  private String id;
 
-    @Column(unique = true, length = 30)
-    private String email;
+  @Column(unique = true, length = 30)
+  private String email;
 
-    @Column(unique = true, length = 100)
-    private String nickname;
+  @Column(unique = true, length = 100)
+  private String nickname;
 
-    @Column(nullable = false, length = 300)
-    private String profileImage;
+  @Column(nullable = false, length = 300)
+  private String profileImage;
 
-    @Column(updatable = false)
-    @CreatedDate
-    private LocalDateTime createdAt;
+  @Column(updatable = false)
+  @CreatedDate
+  private LocalDateTime createdAt;
 
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
+  @LastModifiedDate private LocalDateTime updatedAt;
 
-    public Users update(UsersUpdateRequest request) {
-        this.nickname = request.nickname();
-        this.email = request.email();
-        return this;
-    }
+  public Users update(UsersUpdateRequest request) {
+    this.nickname = request.nickname();
+    this.email = request.email();
+    return this;
+  }
 }

@@ -3,6 +3,7 @@ plugins {
     id 'java' // 자바 프로젝트로 인식
     id 'org.springframework.boot' version "${springBootVersion}" // 스프링 부트 플러그인
     id 'io.spring.dependency-management' version "${springDependencyManagementVersion}" // 의존성 버전 일괄 관리
+    id 'com.diffplug.spotless' version "${spotlessVersion}"
     id 'jacoco'
 }
 
@@ -71,6 +72,10 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+tasks.named('build') {
+    dependsOn 'spotlessApply'
+}
+
 // 의존성 버전 일괄 관리(BOM) 설정
 dependencyManagement {
     imports {
@@ -100,6 +105,19 @@ repositories {
     }
 }
 
+spotless {
+    java {
+        target 'src/**/*.java'
+
+        googleJavaFormat('1.17.0')
+
+        importOrder()
+        removeUnusedImports()
+
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
 
 jacocoTestReport {
     reports {

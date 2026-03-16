@@ -14,14 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class FavoriteCategoryWriter {
 
-    private final FavoriteCategoryRepository favoriteCategoryRepository;
+  private final FavoriteCategoryRepository favoriteCategoryRepository;
 
-    public void postCategories(String userId, CategoryRequest request) {
-        List<String> categories = request.categories();
-        categories.forEach(category -> {
-            FavoriteCategoryId favoriteCategoryId = new FavoriteCategoryId(userId, category);
-            FavoriteCategory favoriteCategory = new FavoriteCategory(favoriteCategoryId);
-            favoriteCategoryRepository.save(favoriteCategory);
+  public void postCategories(String userId, CategoryRequest request) {
+    List<String> categories = request.categories();
+    categories.forEach(
+        category -> {
+          FavoriteCategoryId favoriteCategoryId = new FavoriteCategoryId(userId, category);
+          FavoriteCategory favoriteCategory = new FavoriteCategory(favoriteCategoryId);
+          favoriteCategoryRepository.save(favoriteCategory);
         });
-    }
+  }
 }

@@ -18,58 +18,56 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 @Slf4j
 public class S3Service {
 
-    private final S3Client s3Client;
+  private final S3Client s3Client;
 
-    @Value("${aws.s3.bucket}")
-    private String BUCKET_NAME;
+  @Value("${aws.s3.bucket}")
+  private String BUCKET_NAME;
 
-    @Value("${aws.s3.region}")
-    private String REGION;
+  @Value("${aws.s3.region}")
+  private String REGION;
 
-    //이미지 업로드
-    public String upload(MultipartFile file) throws IOException {
-        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-        String contentType = file.getContentType();
+  // 이미지 업로드
+  public String upload(MultipartFile file) throws IOException {
+    String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+    String contentType = file.getContentType();
 
-        log.info("Uploading file " + fileName);
-        log.info("Bucket Name: " + BUCKET_NAME);
+    log.info("Uploading file " + fileName);
+    log.info("Bucket Name: " + BUCKET_NAME);
 
-        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+    PutObjectRequest putObjectRequest =
+        PutObjectRequest.builder()
             .bucket(BUCKET_NAME)
             .key(fileName)
             .contentType(contentType)
             .build();
 
-        try{
-            s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(
-                file.getInputStream(), file.getSize()
-            ));
-            log.info("image upload success");
-        } catch (RuntimeException e) {
-            log.error(e.getMessage());
-            // S3 이미지 업로드 실패
-            throw UserException.fileUploadFailed();
-        }
-
-        String result = String.format("https://%s.s3.%s.amazonaws.com/%s", BUCKET_NAME, REGION, fileName);
-        if(result.isEmpty()) {
-            // S3 이미지 URL 생성 실패
-           throw UserException.fileUrlGenerationFailed();
-        }
-        log.info("result: {}", result);
-        return result;
+    try {
+      s3Client.putObject(
+          putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
+      log.info("image upload success");
+    } catch (RuntimeException e) {
+      log.error(e.getMessage());
+      // S3 이미지 업로드 실패
+      throw UserException.fileUploadFailed();
     }
 
-    // 이미지 삭제
-    public void deleteImage(String url) {
-        String fileKey = url.substring(url.lastIndexOf("/") + 1);
-        log.info("fileKey: {}", fileKey);
-        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
-            .bucket(BUCKET_NAME)
-            .key(fileKey)
-            .build();
-
-        s3Client.deleteObject(deleteObjectRequest);
+    String result =
+        String.format("https://%s.s3.%s.amazonaws.com/%s", BUCKET_NAME, REGION, fileName);
+    if (result.isEmpty()) {
+      // S3 이미지 URL 생성 실패
+      throw UserException.fileUrlGenerationFailed();
     }
+    log.info("result: {}", result);
+    return result;
+  }
 
+  // 이미지 삭제
+  public void deleteImage(String url) {
+    String fileKey = url.substring(url.lastIndexOf("/") + 1);
+    log.info("fileKey: {}", fileKey);
+    DeleteObjectRequest deleteObjectRequest =
+        DeleteObjectRequest.builder().bucket(BUCKET_NAME).key(fileKey).build();
+
+    s3Client.deleteObject(deleteObjectRequest);
+  }
 }
