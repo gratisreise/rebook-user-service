@@ -1,6 +1,6 @@
 package com.example.rebookuserservice.external.s3;
 
-import com.example.rebookuserservice.domain.exception.UserException;
+import com.example.rebookuserservice.common.exception.UserException;
 import java.io.IOException;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;

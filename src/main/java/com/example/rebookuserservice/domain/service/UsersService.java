@@ -1,7 +1,7 @@
 package com.example.rebookuserservice.domain.service;
 
 import com.example.rebookuserservice.clientfeign.notification.NotificationClient;
-import com.example.rebookuserservice.domain.exception.UserException;
+import com.example.rebookuserservice.common.exception.UserException;
 import com.example.rebookuserservice.domain.model.dto.response.CategoryResponse;
 import com.example.rebookuserservice.domain.model.dto.request.OAuthUsersRequest;
 import com.example.rebookuserservice.domain.model.dto.request.UsersCreateRequest;

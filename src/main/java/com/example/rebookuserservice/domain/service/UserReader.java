@@ -1,6 +1,6 @@
 package com.example.rebookuserservice.domain.service;
 
-import com.example.rebookuserservice.domain.exception.UserException;
+import com.example.rebookuserservice.common.exception.UserException;
 import com.example.rebookuserservice.domain.model.entity.Users;
 import com.example.rebookuserservice.domain.model.dto.request.AuthorsRequest;
 import com.example.rebookuserservice.domain.repository.UserRepository;

@@ -1,12 +1,8 @@
-package com.example.rebookuserservice.domain.exception;
+package com.example.rebookuserservice.common.exception;
 
 import com.rebook.common.core.exception.BusinessException;
 import com.rebook.common.core.exception.ErrorCode;
 
-/**
- * User 도메인 전용 예외 클래스
- * BusinessException을 상속받아 구현
- */
 public class UserException extends BusinessException {
 
     public UserException() {
