@@ -1,4 +1,4 @@
-package com.example.rebookuserservice.domain.service;
+package com.example.rebookuserservice.domain.service.reader;
 
 import com.example.rebookuserservice.common.exception.UserException;
 import com.example.rebookuserservice.domain.model.entity.Users;

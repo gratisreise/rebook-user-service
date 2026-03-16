@@ -1,22 +1,21 @@
 package com.example.rebookuserservice.domain.service;
 
-import com.example.rebookuserservice.clientfeign.notification.NotificationClient;
-import com.example.rebookuserservice.common.exception.UserException;
-import com.example.rebookuserservice.domain.model.dto.response.CategoryResponse;
+import com.example.rebookuserservice.domain.model.dto.request.AuthorsRequest;
 import com.example.rebookuserservice.domain.model.dto.request.OAuthUsersRequest;
 import com.example.rebookuserservice.domain.model.dto.request.UsersCreateRequest;
-import com.example.rebookuserservice.domain.model.dto.response.UsersResponse;
 import com.example.rebookuserservice.domain.model.dto.request.UsersUpdateRequest;
+import com.example.rebookuserservice.domain.model.dto.response.CategoryResponse;
+import com.example.rebookuserservice.domain.model.dto.response.UsersResponse;
 import com.example.rebookuserservice.domain.model.entity.Users;
 import com.example.rebookuserservice.domain.repository.FavoriteCategoryRepository;
-import com.example.rebookuserservice.domain.repository.UserRepository;
-import com.example.rebookuserservice.external.s3.S3Service;
+import com.example.rebookuserservice.domain.service.reader.FavoriteCategoryReader;
+import com.example.rebookuserservice.domain.service.reader.UserReader;
+import com.example.rebookuserservice.domain.service.writer.FavoriteCategoryWriter;
+import com.example.rebookuserservice.domain.service.writer.UsersWriter;
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,14 +24,11 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 @Slf4j
 public class UsersService {
-    private final UserRepository userRepository;
     private final UserReader userReader;
-    private final S3Service s3Service;
-    private final FavoriteCategoryRepository  favoriteCategoryRepository;
-    private final NotificationClient notificationClient;
-
-    @Value("${aws.basic}")
-    private String baseImageUrl;
+    private final UsersWriter usersWriter;
+    private final FavoriteCategoryReader favoriteCategoryReader;
+    private final FavoriteCategoryWriter favoriteCategoryWriter;
+    private final FavoriteCategoryRepository favoriteCategoryRepository;
 
     //유저 정보 조회
     @Transactional(readOnly = true)
@@ -43,49 +39,21 @@ public class UsersService {
 
     @Transactional
     public void updateUser(String userId, UsersUpdateRequest request, MultipartFile file) throws IOException {
-        // 존재하지 않는 유저
-        if(!userRepository.existsById(userId)) {
-            throw UserException.userNotFound();
-        }
-
-        Users user = userReader.getUser(userId);
-        String newEmail = request.email();
-        String newNickname= request.nickname();
-
-        if(file != null) {
-            String imageUrl = s3Service.upload(file);
-            user.setProfileImage(imageUrl);
-            log.info("Image url: {}", imageUrl);
-        }
-
-        // 중복된 이메일
-        if(!user.getEmail().equals(newEmail) && userRepository.existsByEmail(newEmail)){
-            throw UserException.duplicatedEmail();
-        }
-
-        // 중복된 닉네임
-        if(!user.getNickname().equals(newNickname) && userRepository.existsByNickname(newNickname)){
-            throw UserException.duplicatedNickname();
-        }
-
-        Users updatedUser = user.update(request);
-        log.info("User updated: {}", updatedUser);
+        usersWriter.updateUser(userId, request, file);
     }
 
     @Transactional
     public void deleteUser(String userId) {
-        // 존재하지 않는 유저
-        if(!userRepository.existsById(userId)) {
-            throw UserException.userNotFound();
-        }
-        userRepository.deleteById(userId);
+        usersWriter.deleteUser(userId);
     }
 
+    @Transactional(readOnly = true)
     public CategoryResponse getCategories(String userId) {
         List<String> categories = getFavoriteCategories(userId);
         return new CategoryResponse(categories);
     }
 
+    @Transactional(readOnly = true)
     public List<String> getRecommendedCategories(String userId) {
         return getFavoriteCategories(userId);
     }
@@ -98,6 +66,7 @@ public class UsersService {
             .toList();
     }
 
+    @Transactional(readOnly = true)
     public UsersResponse getUserOther(String userId) {
         Users user = userReader.getUser(userId);
         return new UsersResponse(user);
@@ -105,23 +74,16 @@ public class UsersService {
 
     @Transactional
     public String createUser(UsersCreateRequest request) {
-        String userId = generateUserId();
-        Users user = request.toEntity(baseImageUrl, userId);
-        Users savedUsers = userRepository.save(user);
-        notificationClient.createAllSettings(userId);
-        return savedUsers.getId();
+        return usersWriter.createUser(request);
     }
 
     @Transactional
     public String createUser(OAuthUsersRequest request) {
-        String userId = generateUserId();
-        Users user = request.toEntity(userId);
-        Users savedUsers = userRepository.save(user);
-        notificationClient.createAllSettings(userId);
-        return savedUsers.getId();
+        return usersWriter.createUser(request);
     }
 
-    private String generateUserId(){
-        return UUID.randomUUID().toString().replaceAll(",","");
+    @Transactional(readOnly = true)
+    public List<String> getAuthors(AuthorsRequest request) {
+        return userReader.getAuthors(request);
     }
 }

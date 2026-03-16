@@ -54,11 +54,10 @@ public class UsersController {
 
     @PutMapping
     public ResponseEntity<SuccessResponse<Void>> updateUser(
-        @RequestHeader("X-User-Id")String userId,
+        @PassportUser String userId,
         @RequestPart UsersUpdateRequest request,
         @RequestPart(required = false) MultipartFile file
     ) throws IOException {
-        log.info("update user {}", request.toString());
         usersService.updateUser(userId, request, file);
         return SuccessResponse.toNoContent();
     }

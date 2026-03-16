@@ -3,8 +3,7 @@ package com.example.rebookuserservice.domain.controller;
 import com.example.rebookuserservice.domain.model.dto.request.OAuthUsersRequest;
 import com.example.rebookuserservice.domain.model.dto.request.UsersCreateRequest;
 import com.example.rebookuserservice.domain.model.dto.request.AuthorsRequest;
-import com.example.rebookuserservice.domain.service.FavoriteCategoryReader;
-import com.example.rebookuserservice.domain.service.UserReader;
+import com.example.rebookuserservice.domain.service.FavoriteCategoryService;
 import com.example.rebookuserservice.domain.service.UsersService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -21,18 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/users")
 @Slf4j
 public class ClientController {
-    private final UserReader userReader;
-    private final FavoriteCategoryReader favoriteCategoryReader;
     private final UsersService usersService;
+    private final FavoriteCategoryService favoriteCategoryService;
 
     @PostMapping("/authors")
     public List<String> getAuthors(@RequestBody AuthorsRequest request) {
-        return userReader.getAuthors(request);
+        return usersService.getAuthors(request);
     }
 
     @GetMapping("/alarms/books")
-    public  List<String> getUserIdsByCategory(@RequestParam String category) {
-        return favoriteCategoryReader.findUserIdsByCategory(category);
+    public List<String> getUserIdsByCategory(@RequestParam String category) {
+        return favoriteCategoryService.findUserIdsByCategory(category);
     }
 
     @PostMapping("/sign-up")
