@@ -1,8 +1,7 @@
 package com.example.rebookuserservice.domain.service;
 
 import com.example.rebookuserservice.clientfeign.notification.NotificationClient;
-import com.example.rebookuserservice.common.exception.CDuplicatedDataException;
-import com.example.rebookuserservice.common.exception.CInvalidDataException;
+import com.example.rebookuserservice.domain.exception.UserException;
 import com.example.rebookuserservice.domain.model.dto.response.CategoryResponse;
 import com.example.rebookuserservice.domain.model.dto.request.OAuthUsersRequest;
 import com.example.rebookuserservice.domain.model.dto.request.UsersCreateRequest;
@@ -44,13 +43,14 @@ public class UsersService {
 
     @Transactional
     public void updateUser(String userId, UsersUpdateRequest request, MultipartFile file) throws IOException {
+        // 존재하지 않는 유저
         if(!userRepository.existsById(userId)) {
-            throw new CInvalidDataException("존재하지 않는 유저입니다.");
+            throw UserException.userNotFound();
         }
 
         Users user = userReader.getUser(userId);
-        String newEmail = request.getEmail();
-        String newNickname= request.getNickname();
+        String newEmail = request.email();
+        String newNickname= request.nickname();
 
         if(file != null) {
             String imageUrl = s3Service.upload(file);
@@ -58,12 +58,14 @@ public class UsersService {
             log.info("Image url: {}", imageUrl);
         }
 
+        // 중복된 이메일
         if(!user.getEmail().equals(newEmail) && userRepository.existsByEmail(newEmail)){
-            throw new CDuplicatedDataException("중복된 이메일이 있습니다.");
+            throw UserException.duplicatedEmail();
         }
 
+        // 중복된 닉네임
         if(!user.getNickname().equals(newNickname) && userRepository.existsByNickname(newNickname)){
-            throw new CDuplicatedDataException("중복된 닉네임이 있습니다.");
+            throw UserException.duplicatedNickname();
         }
 
         Users updatedUser = user.update(request);
@@ -72,8 +74,9 @@ public class UsersService {
 
     @Transactional
     public void deleteUser(String userId) {
+        // 존재하지 않는 유저
         if(!userRepository.existsById(userId)) {
-            throw new CInvalidDataException("존재하지 않는 유저입니다.");
+            throw UserException.userNotFound();
         }
         userRepository.deleteById(userId);
     }

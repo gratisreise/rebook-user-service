@@ -1,5 +1,6 @@
 package com.example.rebookuserservice.external.s3;
 
+import com.example.rebookuserservice.domain.exception.UserException;
 import java.io.IOException;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -46,12 +47,14 @@ public class S3Service {
             log.info("image upload success");
         } catch (RuntimeException e) {
             log.error(e.getMessage());
-            throw new CMissingDataException("s3 이미지 업로드에 실패했습니다.");
+            // S3 이미지 업로드 실패
+            throw UserException.fileUploadFailed();
         }
 
         String result = String.format("https://%s.s3.%s.amazonaws.com/%s", BUCKET_NAME, REGION, fileName);
         if(result.isEmpty()) {
-           throw new CMissingDataException("s3 이미지 url 생성 실패");
+            // S3 이미지 URL 생성 실패
+           throw UserException.fileUrlGenerationFailed();
         }
         log.info("result: {}", result);
         return result;

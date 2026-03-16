@@ -46,8 +46,8 @@ public class Users {
     private LocalDateTime updatedAt;
 
     public Users update(UsersUpdateRequest request) {
-        this.nickname = request.getNickname();
-        this.email = request.getEmail();
+        this.nickname = request.nickname();
+        this.email = request.email();
         return this;
     }
 }

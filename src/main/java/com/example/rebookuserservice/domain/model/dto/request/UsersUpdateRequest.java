@@ -11,4 +11,5 @@ public record UsersUpdateRequest(
     @Length(min = 3, max = 20)
     String nickname
 ) {
+
 }

@@ -1,6 +1,6 @@
 package com.example.rebookuserservice.domain.service;
 
-import com.example.rebookuserservice.common.exception.CMissingDataException;
+import com.example.rebookuserservice.domain.exception.UserException;
 import com.example.rebookuserservice.domain.model.entity.Users;
 import com.example.rebookuserservice.domain.model.dto.request.AuthorsRequest;
 import com.example.rebookuserservice.domain.repository.UserRepository;
@@ -17,14 +17,16 @@ public class UserReader {
 
     //단일 유저 정보 조회
     public Users getUser(String userId) {
+        // 존재하지 않는 유저
         return userRepository.findById(userId)
-            .orElseThrow(CMissingDataException::new);
+            .orElseThrow(UserException::userNotFound);
     }
 
     public List<String> getAuthors(AuthorsRequest request) {
-        return request.getUserIds().stream()
+        return request.userIds().stream()
             .map(id -> userRepository.findById(id)
-                .orElseThrow(CMissingDataException::new)
+                // 존재하지 않는 유저
+                .orElseThrow(UserException::userNotFound)
                 .getNickname())
             .toList();
     }

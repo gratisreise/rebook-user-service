@@ -1,22 +1,20 @@
 package com.example.rebookuserservice.domain.controller;
 
-import com.example.rebookuserservice.common.CommonResult;
-import com.example.rebookuserservice.common.ResponseService;
-import com.example.rebookuserservice.common.SingleResult;
-import com.example.rebookuserservice.domain.model.dto.response.CategoryResponse;
+
 import com.example.rebookuserservice.domain.model.dto.request.PasswordUpdateRequest;
-import com.example.rebookuserservice.domain.model.dto.response.UsersResponse;
 import com.example.rebookuserservice.domain.model.dto.request.UsersUpdateRequest;
-import com.example.rebookuserservice.passport.PassportUser;
+import com.example.rebookuserservice.domain.model.dto.response.CategoryResponse;
+import com.example.rebookuserservice.domain.model.dto.response.UsersResponse;
 import com.example.rebookuserservice.domain.service.UsersService;
-import com.rebook.passport.PassportProto.Passport;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.rebook.common.auth.PassportProto.Passport;
+import com.rebook.common.auth.PassportUser;
+import com.rebook.common.core.response.SuccessResponse;
 import jakarta.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -33,7 +31,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 @Slf4j
-@Tag(name = "유저API")
 public class UsersController {
 
     private final UsersService usersService;
@@ -46,50 +43,44 @@ public class UsersController {
 
 
     @GetMapping
-    @Operation(summary = "유저조회")
-    public SingleResult<UsersResponse> getUser(@RequestHeader("X-User-Id")String userId) {
-        return ResponseService.getSingleResult(usersService.getUser(userId));
+    public ResponseEntity<SuccessResponse<UsersResponse>> getUser(@PassportUser String userId) {
+        return SuccessResponse.toOk(usersService.getUser(userId));
     }
 
     @GetMapping("/{userId}")
-    @Operation(summary = "다른유저조회")
-    public SingleResult<UsersResponse> getUserOther(@PathVariable String userId) {
-        return ResponseService.getSingleResult(usersService.getUserOther(userId));
+    public ResponseEntity<SuccessResponse<UsersResponse>> getUserOther(@PathVariable String userId) {
+        return SuccessResponse.toOk(usersService.getUserOther(userId));
     }
 
     @PutMapping
-    @Operation(summary = "유저수정")
-    public CommonResult updateUser(
+    public ResponseEntity<SuccessResponse<Void>> updateUser(
         @RequestHeader("X-User-Id")String userId,
         @RequestPart UsersUpdateRequest request,
         @RequestPart(required = false) MultipartFile file
     ) throws IOException {
         log.info("update user {}", request.toString());
         usersService.updateUser(userId, request, file);
-        return ResponseService.getSuccessResult();
+        return SuccessResponse.toNoContent();
     }
 
     @DeleteMapping
-    @Operation(summary = "유저삭제")
-    public CommonResult deleteUser(@RequestHeader("X-User-Id")String userId){
+    public ResponseEntity<SuccessResponse<Void>> deleteUser(@PassportUser String userId){
         usersService.deleteUser(userId);
-        return ResponseService.getSuccessResult();
+        return SuccessResponse.toNoContent();
     }
 
     @PatchMapping("/me")
-    @Operation(summary = "비밀번호수정")
-    public CommonResult updatePassword(
-        @RequestHeader("X-User-Id")String userId,
+    public ResponseEntity<SuccessResponse<Void>> updatePassword(
+        @PassportUser String userId,
         @Valid @RequestBody PasswordUpdateRequest request
     ){
         log.info("update password {}", request.password());
-        return ResponseService.getSuccessResult();
+        return SuccessResponse.toNoContent();
     }
 
     @GetMapping("/categories")
-    @Operation(summary = "선호카테고리목록조회")
-    public SingleResult<CategoryResponse> getCategories(@RequestHeader("X-User-Id")String userId) {
-        return ResponseService.getSingleResult(usersService.getCategories(userId));
+    public ResponseEntity<SuccessResponse<CategoryResponse>> getCategories(@PassportUser String userId) {
+        return SuccessResponse.toOk(usersService.getCategories(userId));
     }
 
     @GetMapping("/categories/recommendations/{userId}")
