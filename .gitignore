@@ -36,4 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 Rebook_user-service.json
-.claude/CLAUDE.md
+.claudedocs
+.serena
