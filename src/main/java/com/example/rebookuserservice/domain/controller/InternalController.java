@@ -16,12 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/internal/users")
 @Slf4j
+@RequestMapping("/internal/users")
 public class InternalController {
   private final UsersService usersService;
   private final FavoriteCategoryService favoriteCategoryService;
 
+  @PostMapping("/sign-up")
+  public String createUser(@RequestBody UsersCreateRequest request) {
+    log.info("request:{}", request);
+    return usersService.createUser(request);
+  }
   @PostMapping("/authors")
   public List<String> getAuthors(@RequestBody AuthorsRequest request) {
     return usersService.getAuthors(request);
@@ -32,9 +37,4 @@ public class InternalController {
     return favoriteCategoryService.findUserIdsByCategory(category);
   }
 
-  @PostMapping("/sign-up")
-  public String createUser(@RequestBody UsersCreateRequest request) {
-    log.info("request:{}", request);
-    return usersService.createUser(request);
-  }
 }
